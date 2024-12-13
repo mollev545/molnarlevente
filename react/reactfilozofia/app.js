@@ -8,18 +8,32 @@ alert("Ez egy natív kód");
 }
 btn.innerHTML= "Natív gomb";
 
-document.getElementById("nativ-button-container")
+document.getElementById("nativ-button-container").appendChild(btn);
 
 appendChild(btn);
 
-const btn = createElement("button")
+React.createElement("button",
+
 {
 onClick: function()
 {
-    alert("Ez egy natív kód");
-}
+    alert("Klikk esemény történt");
+},
 
-}
+},
 "React gomb"
+);
 ReactDOM.render(gomb,document.getElementById("react-button container"));
 
+ReactDOM.render(
+<button
+onClick={()=>{
+alert("ok")
+}}
+className="btn btn-outline-primary"
+>
+Gomb
+</button>,
+document.getElementById("button1-container")
+
+);
