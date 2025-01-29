@@ -1,0 +1,41 @@
+.program-swipe-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.program-card {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.swipe-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.like-button,
+.dislike-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+
+.like-button {
+  background: #4caf50;
+  color: white;
+}
+
+.dislike-button {
+  background: #f44336;
+  color: white;
+}
