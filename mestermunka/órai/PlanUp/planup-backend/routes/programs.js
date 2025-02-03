@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../config/dbConfig');
 
 // Programok lekérdezése
 router.get('/', async (req, res) => {
   try {
+    if (!req.db) {
+      return res.status(500).json({ error: 'Nincs adatbázis kapcsolat.' });
+    }
     const [programs] = await req.db.execute('SELECT * FROM Programs');
     res.status(200).json(programs);
   } catch (error) {
@@ -16,6 +18,9 @@ router.get('/', async (req, res) => {
 // Véletlenszerű program lekérdezése
 router.get('/random', async (req, res) => {
   try {
+    if (!req.db) {
+      return res.status(500).json({ error: 'Nincs adatbázis kapcsolat.' });
+    }
     const [program] = await req.db.execute('SELECT * FROM Programs ORDER BY RAND() LIMIT 1');
     res.status(200).json(program[0] || {});
   } catch (error) {
