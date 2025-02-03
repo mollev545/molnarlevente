@@ -13,26 +13,28 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Adatbázis kapcsolat middleware
-let db;
-(async () => {
+// 🔹 **Globálisan definiáljuk a db változót**
+let db; 
+
+// Middleware: az adatbázis kapcsolat biztosítása minden kéréshez
+app.use(async (req, res, next) => {
   try {
-    db = await mysql.createConnection(dbConfig);
-    console.log('Adatbázis kapcsolat sikeres!');
-    // Hozzáadjuk a db kapcsolatot a req-hez, hogy elérhető legyen az útvonalakban
-    app.use((req, res, next) => {
-      req.db = db;
-      next();
-    });
+    if (!db) {
+      db = await mysql.createConnection(dbConfig);
+      console.log('Adatbázis kapcsolat újra létrehozva.');
+    }
+    req.db = db;
+    next();
   } catch (err) {
-    console.error('Nem sikerült csatlakozni az adatbázishoz:', err.message);
-    process.exit(1); // Ha nincs adatbáziskapcsolat, állítsuk le a szervert
+    console.error('Hiba az adatbázis újracsatlakozás során:', err.message);
+    res.status(500).json({ error: 'Adatbázis kapcsolat sikertelen.' });
   }
-})();
+});
 
 // Útvonalak regisztrálása
-app.use('/programs', programRoutes); // Program útvonalak
-app.use('/rooms', roomRoutes); // Szoba útvonalak
+app.use('/programs', programRoutes);
+app.use('/rooms', roomRoutes);
+
 
 // Regisztráció
 app.post('/auth/register', async (req, res) => {

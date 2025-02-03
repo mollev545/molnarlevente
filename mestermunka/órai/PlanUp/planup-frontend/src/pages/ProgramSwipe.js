@@ -6,13 +6,25 @@ function ProgramSwipe({ apiUrl, userId }) {
   const [program, setProgram] = useState(null);
   const [error, setError] = useState('');
 
+  // Magyar attribútum fordítások
+  const magyarIdotartam = {
+    half_day: 'Fél napos',
+    whole_day: 'Egész napos',
+    weekend: 'Egész hétvégés',
+  };
+
+  const magyarKoltseg = {
+    free: 'Ingyenes',
+    paid: 'Fizetős',
+  };
+
   // Véletlenszerű program betöltése
   const fetchRandomProgram = async () => {
     try {
       const response = await axios.get(`${apiUrl}/programs/random`);
       setProgram(response.data);
     } catch (err) {
-      setError('Failed to fetch program.');
+      setError('Nem sikerült betölteni a programot.');
     }
   };
 
@@ -27,7 +39,7 @@ function ProgramSwipe({ apiUrl, userId }) {
       await axios.post(`${apiUrl}/programs/${program.ProgramID}/${action}`, { userId });
       fetchRandomProgram(); // Következő program betöltése
     } catch (err) {
-      setError('Failed to perform swipe action.');
+      setError('Nem sikerült végrehajtani a műveletet.');
     }
   };
 
@@ -36,7 +48,7 @@ function ProgramSwipe({ apiUrl, userId }) {
   }
 
   if (!program) {
-    return <div className="loading">Loading...</div>;
+    return <div className="loading">Betöltés...</div>;
   }
 
   return (
@@ -45,15 +57,15 @@ function ProgramSwipe({ apiUrl, userId }) {
         <h2>{program.Name}</h2>
         <p>{program.Description}</p>
         <p>Helyszín: {program.Location}</p>
-        <p>Időtartam: {program.Duration}</p>
-        <p>Költség: {program.Cost}</p>
+        <p>Időtartam: {magyarIdotartam[program.Duration] || program.Duration}</p>
+        <p>Költség: {magyarKoltseg[program.Cost] || program.Cost}</p>
       </div>
       <div className="swipe-buttons">
         <button className="dislike-button" onClick={() => handleSwipe('dislike')}>
-          Dislike
+          Nem tetszik
         </button>
         <button className="like-button" onClick={() => handleSwipe('like')}>
-          Like
+          Tetszik
         </button>
       </div>
     </div>
