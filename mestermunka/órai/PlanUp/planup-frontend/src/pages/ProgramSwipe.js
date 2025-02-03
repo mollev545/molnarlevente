@@ -6,7 +6,6 @@ function ProgramSwipe({ apiUrl, userId }) {
   const [program, setProgram] = useState(null);
   const [error, setError] = useState('');
 
-  // Magyar attribútum fordítások
   const magyarIdotartam = {
     half_day: 'Fél napos',
     whole_day: 'Egész napos',
@@ -18,7 +17,6 @@ function ProgramSwipe({ apiUrl, userId }) {
     paid: 'Fizetős',
   };
 
-  // Véletlenszerű program betöltése
   const fetchRandomProgram = async () => {
     try {
       const response = await axios.get(`${apiUrl}/programs/random`);
@@ -37,7 +35,7 @@ function ProgramSwipe({ apiUrl, userId }) {
 
     try {
       await axios.post(`${apiUrl}/programs/${program.ProgramID}/${action}`, { userId });
-      fetchRandomProgram(); // Következő program betöltése
+      fetchRandomProgram();
     } catch (err) {
       setError('Nem sikerült végrehajtani a műveletet.');
     }
@@ -54,6 +52,12 @@ function ProgramSwipe({ apiUrl, userId }) {
   return (
     <div className="program-swipe-container">
       <div className="program-card">
+      <img
+  src={`${process.env.PUBLIC_URL}/images/${program.Image}`}
+  alt={program.Name}
+  className="program-image"
+/>
+
         <h2>{program.Name}</h2>
         <p>{program.Description}</p>
         <p>Helyszín: {program.Location}</p>

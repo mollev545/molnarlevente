@@ -16,6 +16,9 @@ app.use(cors());
 // 🔹 **Globálisan definiáljuk a db változót**
 let db; 
 
+app.use('/images', express.static('public/images'));
+
+
 // Middleware: az adatbázis kapcsolat biztosítása minden kéréshez
 app.use(async (req, res, next) => {
   try {
@@ -86,6 +89,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
+
 // Teszt útvonal
 app.get('/', (req, res) => {
   res.send('Express.js backend működik!');
@@ -111,12 +115,17 @@ app.get('/programs', async (req, res) => {
 app.get('/programs/random', async (req, res) => {
   try {
     const [program] = await req.db.execute('SELECT * FROM Programs ORDER BY RAND() LIMIT 1');
+    if (program[0]) {
+      program[0].Image = `/images/${program[0].Image}`;
+    }
     res.status(200).json(program[0] || {});
   } catch (error) {
-    console.error('Véletlenszerű program hiba:', error.message);
+    console.error('Hiba a véletlenszerű program lekérdezése során:', error.message);
     res.status(500).json({ error: 'Hiba történt egy véletlenszerű program lekérdezése során.' });
   }
 });
+
+
 
 app.post('/programs/:id/like', async (req, res) => {
   const { id } = req.params;
@@ -151,3 +160,5 @@ app.post('/programs/:id/dislike', async (req, res) => {
     res.status(500).json({ error: 'Hiba történt a program nem kedvelése során.' });
   }
 });
+
+
