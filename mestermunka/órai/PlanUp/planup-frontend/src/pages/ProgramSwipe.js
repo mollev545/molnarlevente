@@ -52,11 +52,12 @@ function ProgramSwipe({ apiUrl, userId }) {
   return (
     <div className="program-swipe-container">
       <div className="program-card">
-      <img
-  src={`${process.env.PUBLIC_URL}/images/${program.Image}`}
-  alt={program.Name}
-  className="program-image"
+      <img 
+  src={`/images/${program.Image}`} 
+  alt={program.Name} 
+  className="program-image" 
 />
+
 
         <h2>{program.Name}</h2>
         <p>{program.Description}</p>
