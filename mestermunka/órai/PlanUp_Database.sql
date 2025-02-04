@@ -102,7 +102,7 @@ INSERT INTO Programs (Name, Description, Duration, Cost, Location, Image) VALUES
 ('Kalandpark és kötélpálya', 'Próbáld ki Budapest egyik kalandparkját.', 'half_day', 'paid', 'Challengeland Kalandpálya', 'challengeland-kalandpalya.jpg'),
 ('Street Art túra', 'Ismerd meg Budapest utcai művészetét egy vezetett túrán.', 'half_day', 'free', 'VIII. kerület - Corvin negyed', 'corvin-streetart-tour.jpg'),
 ('Bringatúra Budapesten', 'Fedezd fel a várost biciklivel egy csoportos túrán.', 'whole_day', 'paid', 'Margitsziget - bringakölcsönző', 'margit-sziget-bickli.jpg'),
-('Óriáskerék élmény', 'Csodáld meg Budapest látképét az óriáskerékről.', 'half_day', 'paid', 'Budapest Eye - Erzsébet tér', 'budapest-eye-enhanced'),
+('Óriáskerék élmény', 'Csodáld meg Budapest látképét az óriáskerékről.', 'half_day', 'paid', 'Budapest Eye - Erzsébet tér', 'budapest-eye.jpg'),
 ('Hajnali fotótúra', 'Fényképezd le Budapest legszebb helyeit a napfelkeltében.', 'half_day', 'free', 'Halászbástya', 'halaszbastya-fotozasok.jpg'),
 ('Futóverseny a Városligetben', 'Vegyél részt egy budapesti amatőr futóversenyen.', 'half_day', 'free', 'Városliget', 'varosliget-futas.jpg'),
 ('Sétahajózás pezsgővel', 'Lélegzetelállító kilátás pezsgővel egybekötve a Dunán.', 'half_day', 'paid', 'Vigadó tér', 'setahajozas-pezsgovel-vigadoter.jpg'),
