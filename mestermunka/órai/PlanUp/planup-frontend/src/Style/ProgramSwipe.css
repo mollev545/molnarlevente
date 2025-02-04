@@ -4,72 +4,79 @@
   align-items: center;
   text-align: center;
   margin-top: 20px;
-  background-color: #2c3e50; /* Sötét háttér */
   padding: 20px;
+  background: linear-gradient(135deg, #2c3e50, #34495e);
   border-radius: 12px;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
 .program-card {
-  background: #ecf0f1; /* Világosabb, semleges háttér */
-  border: none; /* Távolítsd el a külső keretet */
-  border-radius: 16px; /* Lágyabb sarkok */
+  background: #ffffff; /* Light background for contrast */
+  border-radius: 16px;
   padding: 20px;
-  width: 350px; /* Nagyobb szélesség */
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  width: 90%; /* Responsive width */
+  max-width: 400px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   margin-bottom: 20px;
-  color: #34495e; /* Sötét szöveg szín */
-  font-family: 'Arial', sans-serif;
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .program-card h1 {
-  font-size: 1.5em;
+  font-size: 1.8em;
   color: #2c3e50;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  font-weight: 700;
 }
 
 .program-card p {
   font-size: 1em;
-  color: #7f8c8d; /* Halványabb szöveg */
+  color: #7f8c8d;
   line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.program-image {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  margin-bottom: 15px;
 }
 
 .swipe-buttons {
   display: flex;
-  gap: 15px; /* Nagyobb távolság a gombok között */
+  gap: 20px;
 }
 
 .like-button,
 .dislike-button {
-  padding: 12px 25px; /* Nagyobb gombok */
+  padding: 12px 30px;
   font-size: 16px;
   cursor: pointer;
   border: none;
   border-radius: 12px;
   font-weight: bold;
-  transition: all 0.3s ease-in-out; /* Animáció a hover hatásra */
+  transition: transform 0.3s, background 0.3s ease;
 }
 
 .like-button {
-  background: #27ae60; /* Élénkebb zöld */
+  background: #27ae60;
   color: white;
 }
 
 .like-button:hover {
-  background: #2ecc71; /* Világosabb zöld hover állapot */
+  background: #2ecc71;
+  transform: scale(1.1);
 }
 
 .dislike-button {
-  background: #e74c3c; /* Élénkebb piros */
+  background: #e74c3c;
   color: white;
 }
 
 .dislike-button:hover {
-  background: #c0392b; /* Sötétebb piros hover állapot */
+  background: #c0392b;
+  transform: scale(1.1);
 }
-.program-image {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-

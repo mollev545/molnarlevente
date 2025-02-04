@@ -2,26 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const db = require('../config/db');
-
-// Regisztráció
-router.post('/register', async (req, res) => {
-  const { username, email, password } = req.body;
-
-  try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const [result] = await db.query(
-      'INSERT INTO Users (Username, Email, PasswordHash) VALUES (?, ?, ?)',
-      [username, email, hashedPassword]
-    );
-
-    res.status(201).json({ message: 'Sikeres regisztráció!' });
-  } catch (error) {
-    console.error('Hiba a regisztráció során:', error);
-    res.status(500).json({ error: 'Hiba történt a regisztráció során.' });
-  }
-});
+const db = require('../config/dbConfig');
 
 // Bejelentkezés
 router.post('/login', async (req, res) => {
@@ -35,16 +16,16 @@ router.post('/login', async (req, res) => {
     }
 
     const user = rows[0];
-
     const isPasswordValid = await bcrypt.compare(password, user.PasswordHash);
 
     if (!isPasswordValid) {
       return res.status(401).json({ error: 'Helytelen jelszó.' });
     }
 
-    const token = jwt.sign({ id: user.UserID }, 'secret_key', { expiresIn: '1h' });
+    // JWT token generálás
+    const token = jwt.sign({ id: user.UserID, email: user.Email }, 'secret_key', { expiresIn: '1h' });
 
-    res.json({ message: 'Sikeres bejelentkezés!', token });
+    res.json({ message: 'Sikeres bejelentkezés!', token, userId: user.UserID });
   } catch (error) {
     console.error('Hiba a bejelentkezés során:', error);
     res.status(500).json({ error: 'Hiba történt a bejelentkezés során.' });

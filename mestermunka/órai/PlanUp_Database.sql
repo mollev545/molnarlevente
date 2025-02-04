@@ -92,7 +92,7 @@ INSERT INTO Programs (Name, Description, Duration, Cost, Location, Image) VALUES
 ('Parlament látogatás', 'Fedezd fel a magyar Parlament csodás épületét.', 'half_day', 'paid', 'Országház', 'parlament-latogatas.jpg'),
 ('Gellért-hegyi kilátótúra', 'Túrázz fel a Gellért-hegyre és élvezd a panorámát.', 'half_day', 'free', 'Gellért-hegy', 'gellert-hegyi-kilato-tura.jpg'),
 ('Margitszigeti piknik', 'Piknikezz és sétálj a Margitszigeten.', 'whole_day', 'free', 'Margitsziget', 'margitszigeti-piknik-szokokut.jpg'),
-('Borkóstoló', 'Kóstold meg Magyarország híres borait egy borkóstoló eseményen.', 'half_day', 'paid', 'Rizmájer Sörház', 'rizmajer-sorkostolas.jpg'),
+('Sörkóstoló', 'Kóstold meg a Rízmájer Sörház különleges kézműves söreit.', 'half_day', 'paid', 'Rizmájer Sörház', 'rizmajer-sorkostolas.jpg'),
 ('Múzeumlátogatás', 'Fedezd fel Budapest történelmét és művészetét egy múzeumban.', 'half_day', 'paid', 'Magyar Nemzeti Múzeum', 'muzeumlatogatas-nemzeti-muzeum.jpg'),
 ('Éjszakai városnéző séta', 'Fedezd fel Budapest fényeit egy esti sétán.', 'half_day', 'free', 'Váci utca', 'vaci-utca-esti-seta.jpg'),
 ('Gasztrotúra', 'Ismerd meg a magyar konyha különlegességeit.', 'half_day', 'paid', 'Nagy Vásárcsarnok', 'gasztrotura-nagyvasarcsarnok.jpg'),

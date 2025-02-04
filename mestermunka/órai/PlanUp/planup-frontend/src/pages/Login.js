@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../Style/Login.css'; // A hozzá tartozó CSS fájl (külön kezelhető)
+import '../Style/Login.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -17,7 +17,7 @@ export default function Login() {
     }
 
     try {
-      const response = await fetch('http://localhost:3001/api/login', {
+      const response = await fetch('http://localhost:3001/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -28,11 +28,10 @@ export default function Login() {
       const data = await response.json();
 
       if (response.ok) {
-        // Sikeres bejelentkezés esetén
-        navigate('/home'); // Átirányítás a főoldalra
+        localStorage.setItem('token', data.token); // JWT mentése
+        navigate('/'); // Átirányítás főoldalra
       } else {
-        // Hibakezelés
-        setError(data.message || 'Hiba történt a bejelentkezés során.');
+        setError(data.error || 'Hibás bejelentkezési adatok.');
       }
     } catch (err) {
       setError('Nem sikerült csatlakozni a szerverhez.');
@@ -66,12 +65,6 @@ export default function Login() {
         {error && <p className="error-message">{error}</p>}
         <button type="submit" className="login-button">Bejelentkezés</button>
       </form>
-      <p className="register-link">
-        Nincs még fiókod?{' '}
-        <span onClick={() => navigate('/registration')} className="link">
-          Regisztráció
-        </span>
-      </p>
     </div>
   );
 }

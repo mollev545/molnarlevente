@@ -36,3 +36,18 @@
     transform: scale(1.1);
   }
   
+  .home-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    color: #4a90e2;
+  }
+  
+  p {
+    font-size: 1.2rem;
+    color: #ffffff;
+  }
+  

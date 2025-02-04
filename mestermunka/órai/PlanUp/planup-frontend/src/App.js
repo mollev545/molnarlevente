@@ -5,7 +5,7 @@ import Login from './pages/Login';
 import Registration from './pages/Registration';
 import Programs from './pages/Programs';
 import ProgramSwipe from './pages/ProgramSwipe';
-import Room from './pages/Room';
+import Room from './pages/Rooms';
 import Profile from './pages/Profile';
 import Navbar from './pages/Navbar';
 

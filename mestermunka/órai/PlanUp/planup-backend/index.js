@@ -5,6 +5,9 @@ const bcrypt = require('bcrypt');
 const dbConfig = require('./config/dbConfig'); // Adatbázis konfiguráció importálása
 const programRoutes = require('./routes/programs'); // Program útvonalak
 const roomRoutes = require('./routes/rooms'); // Szoba útvonalak
+const userRoutes = require('./routes/users');
+
+
 
 // Az app inicializálása
 const app = express();
@@ -62,14 +65,14 @@ app.post('/auth/register', async (req, res) => {
 
 // Bejelentkezés
 app.post('/login', async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
-  if (!username || !password) {
+  if (!email || !password) {
     return res.status(400).json({ error: 'Felhasználónév és jelszó szükséges!' });
   }
 
   try {
-    const [users] = await req.db.execute('SELECT * FROM Users WHERE Username = ?', [username]);
+    const [users] = await req.db.execute('SELECT * FROM Users WHERE Email = ?', [email]);
 
     if (users.length === 0) {
       return res.status(401).json({ error: 'Érvénytelen hitelesítő adatok' });
