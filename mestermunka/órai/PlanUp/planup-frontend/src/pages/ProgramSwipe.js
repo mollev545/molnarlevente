@@ -7,6 +7,7 @@ function ProgramSwipe({ apiUrl, userId }) {
   const [error, setError] = useState('');
   const [filters, setFilters] = useState({ duration: '', cost: '' });
   const [likedPrograms, setLikedPrograms] = useState(new Set());
+  const [filterActive, setFilterActive] = useState(false);
 
   const magyarIdotartam = {
     half_day: 'Fél napos',
@@ -22,12 +23,19 @@ function ProgramSwipe({ apiUrl, userId }) {
   const fetchFilteredProgram = async () => {
     try {
       const response = await axios.get(`${apiUrl}/programs/random`, {
-        params: filters,
+        params: filterActive ? filters : {},
       });
-      if (!likedPrograms.has(response.data.ProgramID)) {
-        setProgram(response.data);
+      const fetchedProgram = response.data;
+
+      // Ellenőrzés a kedvelt programok listájával és a szűrőkkel
+      if (
+        (!likedPrograms.has(fetchedProgram.ProgramID)) &&
+        (!filters.duration || fetchedProgram.Duration === filters.duration) &&
+        (!filters.cost || fetchedProgram.Cost === filters.cost)
+      ) {
+        setProgram(fetchedProgram);
       } else {
-        fetchFilteredProgram(); // Ha már kedvelte, új programot kérünk
+        fetchFilteredProgram(); // Új program lekérése, ha nem felel meg a feltételeknek
       }
     } catch (err) {
       setError('Nem sikerült betölteni a programot.');
@@ -36,7 +44,7 @@ function ProgramSwipe({ apiUrl, userId }) {
 
   useEffect(() => {
     fetchFilteredProgram();
-  }, [apiUrl, filters]);
+  }, [apiUrl, filterActive]);
 
   const handleSwipe = async (action) => {
     if (!program) return;
@@ -74,6 +82,10 @@ function ProgramSwipe({ apiUrl, userId }) {
             <option key={key} value={key}>{value}</option>
           ))}
         </select>
+        
+        <button onClick={() => setFilterActive(!filterActive)}>
+          {filterActive ? 'Szűrő kikapcsolása' : 'Szűrő alkalmazása'}
+        </button>
       </div>
 
       {error && <div className="error-message">{error}</div>}
@@ -93,6 +105,12 @@ function ProgramSwipe({ apiUrl, userId }) {
           <p>Költség: {magyarKoltseg[program.Cost] || program.Cost}</p>
         </div>
       )}
+      <div class="ads-container">
+  <img src="https://via.placeholder.com/150x300?text=Ad+1" alt="Ad 1" />
+  <img src="https://via.placeholder.com/150x300?text=Ad+2" alt="Ad 2" />
+  <img src="https://via.placeholder.com/150x300?text=Ad+3" alt="Ad 3" />
+</div>
+
 
       <div className="swipe-buttons">
         <button className="dislike-button" onClick={() => handleSwipe('dislike')}>
