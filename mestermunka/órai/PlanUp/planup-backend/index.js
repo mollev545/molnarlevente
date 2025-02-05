@@ -3,9 +3,11 @@ const mysql = require('mysql2/promise');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const dbConfig = require('./config/dbConfig'); // Adatbázis konfiguráció importálása
-const programRoutes = require('./routes/programs'); // Program útvonalak
-const roomRoutes = require('./routes/rooms'); // Szoba útvonalak
+const programRoutes = require('./routes/programs'); 
 const userRoutes = require('./routes/users');
+const roomRoutes = require('./routes/rooms'); // Router importálása
+
+
 
 
 
@@ -20,6 +22,8 @@ app.use(cors());
 let db; 
 
 app.use('/images', express.static('public/images'));
+app.use('/rooms', roomRoutes);
+
 
 
 // Middleware: az adatbázis kapcsolat biztosítása minden kéréshez

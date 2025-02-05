@@ -1,53 +1,95 @@
-// Backend: routes/rooms.js
 const express = require('express');
 const router = express.Router();
+const mysql = require('mysql2/promise');
+const dbConfig = require('../config/dbConfig');
 
-// Szoba létrehozása
-router.post('/create', async (req, res) => {
-    const { userID } = req.body;
+router.post('/', async (req, res) => {
+  const { name, userId } = req.body;
 
-    if (!userID) {
-        return res.status(400).json({ error: 'Felhasználói azonosító szükséges!' });
-    }
+  if (!name || !userId) {
+    return res.status(400).json({ error: 'A szoba neve és a felhasználói azonosító kötelező!' });
+  }
 
-    const roomCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+  try {
+    const db = await mysql.createConnection(dbConfig);
+    const [result] = await db.execute(
+      'INSERT INTO Rooms (RoomCode, CreatedByUserID) VALUES (?, ?)',
+      [name, userId]
+    );
+    await db.end();
+    res.status(201).json({ message: 'Szoba sikeresen létrehozva!', roomId: result.insertId });
+  } catch (err) {
+    console.error('Hiba a szoba létrehozása során:', err.message);
+    res.status(500).json({ error: 'Nem sikerült létrehozni a szobát.', details: err.message });
+  }
+});
 
+
+
+
+
+// Szobák listázása
+router.get('/', async (req, res) => {
     try {
-        const [result] = await req.db.execute(
-            'INSERT INTO Rooms (RoomCode, CreatedBy) VALUES (?, ?)',
-            [roomCode, userID]
-        );
-        res.status(201).json({ message: 'Szoba sikeresen létrehozva!', roomCode });
+        const db = await mysql.createConnection(dbConfig);
+        const [rooms] = await db.execute('SELECT * FROM Rooms');
+        await db.end();
+        res.status(200).json(rooms);
     } catch (error) {
-        console.error('Hiba szoba létrehozásakor:', error.message);
-        res.status(500).json({ error: 'Szoba létrehozása sikertelen.' });
+        res.status(500).json({ error: 'Hiba történt a szobák lekérdezése során', details: error.message });
     }
 });
 
 // Szobához csatlakozás
 router.post('/join', async (req, res) => {
-    const { roomCode, userID } = req.body;
+    const { roomId, userId } = req.body;
+    console.log('Received data for join:', { roomId, userId });
 
-    if (!roomCode || !userID) {
-        return res.status(400).json({ error: 'RoomCode és UserID szükséges!' });
+    if (!roomId || !userId) {
+        return res.status(400).json({ error: 'A szoba ID és a felhasználó ID szükséges!' });
     }
 
     try {
-        const [rooms] = await req.db.execute('SELECT RoomID FROM Rooms WHERE RoomCode = ?', [roomCode]);
-
-        if (rooms.length === 0) {
-            return res.status(404).json({ error: 'Szoba nem található!' });
-        }
-
-        const roomID = rooms[0].RoomID;
-
-        await req.db.execute('INSERT INTO RoomUsers (RoomID, UserID) VALUES (?, ?)', [roomID, userID]);
-
-        res.status(200).json({ message: 'Sikeresen csatlakoztál a szobához!', roomID });
+        const db = await mysql.createConnection(dbConfig);
+        const [result] = await db.execute(
+            'INSERT INTO RoomParticipants (RoomID, UserID) VALUES (?, ?)',
+            [roomId, userId]
+        );
+        console.log('Insert result:', result);
+        await db.end();
+        res.status(200).json({ message: 'Sikeresen csatlakoztál a szobához' });
     } catch (error) {
-        console.error('Hiba szobához való csatlakozáskor:', error.message);
-        res.status(500).json({ error: 'Csatlakozás sikertelen.' });
+        console.error('Insert error:', error.message);
+        res.status(500).json({ error: 'Hiba történt a szobához csatlakozás során', details: error.message });
     }
 });
+
+
+// Szoba törlése
+// Szoba törlése
+router.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+      const db = await mysql.createConnection(dbConfig);
+  
+      // Töröljük az összes kapcsolódó sort a RoomParticipants táblából
+      await db.execute('DELETE FROM RoomParticipants WHERE RoomID = ?', [id]);
+  
+      // Töröljük a szobát
+      const [result] = await db.execute('DELETE FROM Rooms WHERE RoomID = ?', [id]);
+      await db.end();
+  
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ error: 'Nem található szoba a megadott ID alapján.' });
+      }
+  
+      res.status(200).json({ message: 'Szoba sikeresen törölve.' });
+    } catch (err) {
+      console.error('Törlési hiba:', err.message);
+      res.status(500).json({ error: 'Hiba történt a szoba törlésekor.', details: err.message });
+    }
+  });
+  
+
 
 module.exports = router;
