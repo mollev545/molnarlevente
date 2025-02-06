@@ -133,12 +133,12 @@ INSERT INTO Programs (Name, Description, Duration, Cost, Location, Image) VALUES
 ('Nyílt nap az Operában', 'Tekints be a Magyar Állami Operaház kulisszatitkaiba ingyenesen.', 'weekend', 'free', 'Magyar Állami Operaház', 'nyilt-nap-opera.jpg'),
 ('Történelmi séta Budapesten', 'Vezetett túra Budapest történelmi emlékhelyein.', 'weekend', 'free', 'Budai Vár', 'tortenelmi-seta.jpg'),
 ('Ingyenes kiállítás a Millenárison', 'Fedezd fel az aktuális művészeti kiállításokat.', 'weekend', 'free', 'Millenáris Park', 'ingyenes-kiallitas.jpg'),
-('Dunakorzó esti séta', 'Csodáld meg a Duna-part fényeit egy kellemes esti sétán.', 'weekend', 'free', 'Dunakorzó', 'dunakorz-est.jpg');
-('Kolodko szobor keresés', 'Fedezd fel Budapest rejtett kis mini szobrait, találd meg mindet!', 'half_day', 'free', 'Budapest', 'kolodko-szobor.jpg');
-('Paintball', 'Vegyétek fel a harcot, küzdjetek meg egymással, ne hagyjátok hogy egy cseppnyi festék is érjen titeket!', 'weekend', 'paid', 'Budapest', 'paintball.jpg');
-('Lézerharc', 'Vegyétek fel a harcot, küzdjetek meg egymással, ne hagyjátok hogy a lézer eltaláljon!', 'weekend', 'paid', 'Budapest', 'lezerharc.jpg');
-('Csillagnézés', 'Menjetek ki a szabadba éjszaka, és csodáljátok meg a csillagokkal teli égboltot!', 'half_day', 'free', 'Budapest', 'csillag-pasztazas.jpg');
-('Társasjátékozás', 'Mérjétek össze tudásotokat vagy szerencséteket egy jó társasjátékban, esetleg egy jó hideg sör társaságában!', 'weekend', 'paid', 'Budapest', 'tarsasjatek_sorozgetes.jpg');
+('Dunakorzó esti séta', 'Csodáld meg a Duna-part fényeit egy kellemes esti sétán.', 'weekend', 'free', 'Dunakorzó', 'dunakorz-est.jpg'),
+('Kolodko szobor keresés', 'Fedezd fel Budapest rejtett kis mini szobrait találd meg mindet!', 'half_day', 'free', 'Budapest', 'kolodko-szobor.jpg'),
+('Paintball', 'Vegyétek fel a harcot, küzdjetek meg egymással, ne hagyjátok hogy egy cseppnyi festék is érjen titeket!', 'weekend', 'paid', 'Budapest', 'paintball.jpg'),
+('Lézerharc', 'Vegyétek fel a harcot, küzdjetek meg egymással, ne hagyjátok hogy a lézer eltaláljon!', 'weekend', 'paid', 'Budapest', 'lezerharc.jpg'),
+('Csillagnézés', 'Menjetek ki a szabadba éjszaka, és csodáljátok meg a csillagokkal teli égboltot!', 'half_day', 'free', 'Budapest', 'csillag-pasztazas.jpg'),
+('Társasjátékozás', 'Mérjétek össze tudásotokat vagy szerencséteket egy jó társasjátékban, esetleg egy jó hideg sör társaságában!', 'weekend', 'paid', 'Budapest', 'tarsasjatek_sorozgetes.jpg'),
 ('Plázázás', 'Fedezzétek fel Budapest plázáit, vesszetek el a kirakatokban.', 'half_day', 'free', 'Budapest', 'plazazas-shoppingolas.jpg');
 
 
