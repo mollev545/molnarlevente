@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Button, Input, Card, CardContent } from "@/components/ui";
 
 const Profile = () => {
   const [name, setName] = useState("");

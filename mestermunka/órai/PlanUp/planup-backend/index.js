@@ -6,6 +6,7 @@ const dbConfig = require('./config/dbConfig'); // Adatbázis konfiguráció impo
 const programRoutes = require('./routes/programs'); 
 const userRoutes = require('./routes/users');
 const roomRoutes = require('./routes/rooms'); // Router importálása
+const profileRoutes = require('./routes/profile');
 
 
 
@@ -23,7 +24,7 @@ let db;
 
 app.use('/images', express.static('public/images'));
 app.use('/rooms', roomRoutes);
-
+app.use('/profile', profileRoutes);
 
 
 // Middleware: az adatbázis kapcsolat biztosítása minden kéréshez
