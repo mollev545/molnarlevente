@@ -134,11 +134,8 @@ INSERT INTO Programs (Name, Description, Duration, Cost, Location, Image) VALUES
 ('Történelmi séta Budapesten', 'Vezetett túra Budapest történelmi emlékhelyein.', 'weekend', 'free', 'Budai Vár', 'tortenelmi-seta.jpg'),
 ('Ingyenes kiállítás a Millenárison', 'Fedezd fel az aktuális művészeti kiállításokat.', 'weekend', 'free', 'Millenáris Park', 'ingyenes-kiallitas.jpg'),
 ('Dunakorzó esti séta', 'Csodáld meg a Duna-part fényeit egy kellemes esti sétán.', 'weekend', 'free', 'Dunakorzó', 'dunakorz-est.jpg'),
-<<<<<<< HEAD
 ('Kolodko szobor keresés', 'Fedezd fel Budapest rejtett kis mini szobrait, találd meg mindet!', 'half_day', 'free', 'Budapest', 'kolodko-szobor.jpg'),
-=======
 ('Kolodko szobor keresés', 'Fedezd fel Budapest rejtett kis mini szobrait találd meg mindet!', 'half_day', 'free', 'Budapest', 'kolodko-szobor.jpg'),
->>>>>>> cfe8d01767cb3b173e738a12f0c8896a5ac7d8e2
 ('Paintball', 'Vegyétek fel a harcot, küzdjetek meg egymással, ne hagyjátok hogy egy cseppnyi festék is érjen titeket!', 'weekend', 'paid', 'Budapest', 'paintball.jpg'),
 ('Lézerharc', 'Vegyétek fel a harcot, küzdjetek meg egymással, ne hagyjátok hogy a lézer eltaláljon!', 'weekend', 'paid', 'Budapest', 'lezerharc.jpg'),
 ('Csillagnézés', 'Menjetek ki a szabadba éjszaka, és csodáljátok meg a csillagokkal teli égboltot!', 'half_day', 'free', 'Budapest', 'csillag-pasztazas.jpg'),

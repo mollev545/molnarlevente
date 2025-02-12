@@ -6,7 +6,7 @@ const dbConfig = require('./config/dbConfig'); // Adatbázis konfiguráció impo
 const programRoutes = require('./routes/programs'); 
 const userRoutes = require('./routes/users');
 const roomRoutes = require('./routes/rooms'); // Router importálása
-const profileRoutes = require('./routes/profile');
+const profileRoutes = require('./routes/profiles');
 
 
 
