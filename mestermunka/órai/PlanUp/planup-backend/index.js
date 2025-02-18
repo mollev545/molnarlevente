@@ -25,16 +25,19 @@ app.use('/users', userRoutes);
 app.use(async (req, res, next) => {
   try {
     if (!db) {
+      console.log('🔄 Kapcsolódás az adatbázishoz...');
       db = await mysql.createConnection(dbConfig);
-      console.log('Adatbázis kapcsolat létrehozva.');
+      console.log('✅ Sikeres kapcsolat az adatbázishoz!');
     }
     req.db = db;
     next();
   } catch (err) {
-    console.error('Hiba az adatbázis csatlakozás során:', err.message);
-    res.status(500).json({ error: 'Adatbázis kapcsolat sikertelen.' });
+    console.error('❌ Hiba az adatbázis csatlakozásnál:', err);
+    res.status(500).json({ error: 'Nincs adatbázis kapcsolat.', details: err.message });
   }
 });
+
+
 
 // Regisztráció
 app.post('/auth/register', async (req, res) => {
@@ -97,14 +100,21 @@ app.get('/programs', async (req, res) => {
 // Véletlenszerű program lekérése
 app.get('/programs/random', async (req, res) => {
   try {
+    console.log("🔍 Program kiválasztása az adatbázisból...");
     const [program] = await req.db.execute('SELECT * FROM Programs ORDER BY RAND() LIMIT 1');
-    if (program[0]) {
-      program[0].Image = `/images/${program[0].Image}`;
+
+    if (program.length === 0) {
+      console.warn("⚠️ Nincs elérhető program az adatbázisban!");
+      return res.status(404).json({ error: 'Nincs elérhető program az adatbázisban.' });
     }
-    res.status(200).json(program[0] || {});
+
+    program[0].Image = `/images/${program[0].Image}`;
+    console.log("✅ Program sikeresen betöltve:", program[0]);
+    res.status(200).json(program[0]);
+
   } catch (error) {
-    console.error('Hiba a véletlenszerű program lekérdezése során:', error.message);
-    res.status(500).json({ error: 'Hiba történt egy véletlenszerű program lekérdezése során.' });
+    console.error('❌ Hiba a véletlenszerű program lekérdezése során:', error);
+    res.status(500).json({ error: 'Szerverhiba történt.', details: error.message });
   }
 });
 
@@ -140,7 +150,7 @@ app.post('/programs/:id/dislike', async (req, res) => {
   }
 });
 
-const PORT = 3002;
+const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Szerver fut a http://localhost:${PORT} címen`);
 });

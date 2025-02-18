@@ -20,9 +20,11 @@ CREATE TABLE Programs (
     Name VARCHAR(255) NOT NULL,
     Description TEXT,
     Price DECIMAL(10,2) NOT NULL DEFAULT 0.00,
-    IsPaid BOOLEAN NOT NULL DEFAULT FALSE, -- Fizetős szűrő (TRUE/FALSE)
-    DurationType TINYINT NOT NULL DEFAULT 1, -- Időtartam (1 = Fél nap, 2 = Egész nap, 3 = Hétvége)
-    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    Cost BOOLEAN NOT NULL DEFAULT FALSE, -- Fizetős szűrő (TRUE/FALSE)
+    Duration TINYINT NOT NULL DEFAULT 1, -- Időtartam (1 = Fél nap, 2 = Egész nap, 3 = Hétvége)
+    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    Location VARCHAR(25) NOT NULL,
+    Image VARCHAR(25) NOT NULL
 );
 
 -- UserPreferences table: stores user preferences for filtering programs

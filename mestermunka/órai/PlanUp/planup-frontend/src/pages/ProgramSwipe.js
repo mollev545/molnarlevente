@@ -5,7 +5,7 @@ import '../Style/ProgramSwipe.css';
 function ProgramSwipe({ apiUrl, userId }) {
   const [program, setProgram] = useState(null);
   const [error, setError] = useState('');
-  const [filters, setFilters] = useState({ durationType: '', isPaid: '' });
+  const [filters, setFilters] = useState({ duration: '', cost: '' });
   const [likedPrograms, setLikedPrograms] = useState(new Set());
   const [filterActive, setFilterActive] = useState(false);
 
@@ -28,9 +28,10 @@ function ProgramSwipe({ apiUrl, userId }) {
       const fetchedProgram = response.data;
 
       if (
+        fetchedProgram &&
         (!likedPrograms.has(fetchedProgram.ProgramID)) &&
-        (!filters.durationType || fetchedProgram.DurationType == filters.durationType) &&
-        (filters.isPaid === '' || fetchedProgram.IsPaid == filters.isPaid)
+        (!filters.duration || fetchedProgram.Duration == filters.duration) &&
+        (filters.cost === '' || fetchedProgram.Cost == filters.cost)
       ) {
         setProgram(fetchedProgram);
       } else {
@@ -63,8 +64,8 @@ function ProgramSwipe({ apiUrl, userId }) {
     <div className="program-swipe-container">
       <div className="filters">
         <select
-          value={filters.durationType}
-          onChange={(e) => setFilters({ ...filters, durationType: e.target.value })}
+          value={filters.duration}
+          onChange={(e) => setFilters({ ...filters, duration: e.target.value })}
         >
           <option value="">Összes időtartam</option>
           {Object.entries(magyarIdotartam).map(([key, value]) => (
@@ -73,8 +74,8 @@ function ProgramSwipe({ apiUrl, userId }) {
         </select>
 
         <select
-          value={filters.isPaid}
-          onChange={(e) => setFilters({ ...filters, isPaid: e.target.value })}
+          value={filters.cost}
+          onChange={(e) => setFilters({ ...filters, cost: e.target.value })}
         >
           <option value="">Összes költség</option>
           {Object.entries(magyarKoltseg).map(([key, value]) => (
@@ -100,8 +101,8 @@ function ProgramSwipe({ apiUrl, userId }) {
           <h2>{program.Name}</h2>
           <p>{program.Description}</p>
           <p>Helyszín: {program.Location}</p>
-          <p>Időtartam: {magyarIdotartam[program.DurationType] || program.DurationType}</p>
-          <p>Költség: {magyarKoltseg[program.IsPaid] || program.IsPaid}</p>
+          <p>Időtartam: {magyarIdotartam[program.Duration] || program.Duration}</p>
+          <p>Költség: {magyarKoltseg[program.Cost] || program.Cost}</p>
         </div>
       )}
 
