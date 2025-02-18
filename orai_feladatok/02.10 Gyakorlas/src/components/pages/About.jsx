@@ -1,11 +1,13 @@
-import React from 'react'
+import React from "react";
 
-export const About = () =>
-{
-return
-<div>
-<h1>Rólunk</h1>
-<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat, ut? Hic quis repellendus praesentium magni a veniam nam reiciendis iure non deleniti aperiam quia nemo rem ullam eum eveniet ducimus cum, unde corrupti, in ex? Sunt veniam veritatis, voluptate unde impedit numquam. Explicabo in iusto illo provident quaerat asperiores modi deserunt maiores vero aspernatur nisi rerum eius animi, sequi fugiat omnis suscipit qui fuga tenetur, vitae exercitationem labore consectetur blanditiis! Officia dolorem incidunt, corrupti maxime rerum quidem illo soluta accusantium illum tempore voluptatibus minima omnis assumenda. Tempora facere deleniti accusantium minus doloremque beatae dolorum reprehenderit earum magnam aperiam dignissimos optio tenetur, nemo eaque error delectus adipisci possimus, atque dicta, similique at perspiciatis neque alias quam. Ipsa aliquid nesciunt, veritatis inventore quasi aut possimus repellendus ullam quidem. Ipsum eligendi quasi iste accusamus laborum voluptas id voluptatum laboriosam expedita, ut, in soluta at iusto, blanditiis odit. Natus libero aut in fugiat atque corporis. Odio iure ipsam, impedit natus, quam fugit autem, soluta dolor minima provident tempore facere? Est aut dolorum harum illum voluptas doloremque velit ad dolores nulla aliquam rerum mollitia, quos minima minus alias eius nam sed, repudiandae dolorem inventore quas pariatur! Reiciendis quia rem molestias repellendus itaque ratione temporibus eaque, expedita earum nesciunt possimus! Nam ab itaque debitis voluptatem, animi recusandae aperiam atque, quibusdam similique perferendis natus, iusto nihil mollitia in odio iure est. Itaque voluptatum quis, autem minus repudiandae laborum obcaecati quae, voluptatibus impedit tempore sit dolores animi voluptate nemo facilis officiis incidunt. At nesciunt illo vitae dolorum? Est ex sed commodi nisi sapiente, fugiat et quasi atque itaque a ut non ab consectetur delectus soluta ratione? Corporis voluptatum, quo, tempora error a ratione nobis reprehenderit ab cupiditate aut blanditiis, est repellat facilis? Quisquam, consectetur. Delectus qui corporis inventore, obcaecati veniam in quia possimus suscipit nulla tempora, repellat debitis.</p>
-</div>
+export const About = () =>{
+   return(
+      <div>
+         <h1>Rólunk</h1>
+         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga autem eius similique quae maxime animi. Neque perspiciatis sed ipsam amet accusantium. Sapiente aspernatur, fugiat asperiores repudiandae expedita illum quia id.</p>
 
-}
+
+      </div>
+
+   )
+};

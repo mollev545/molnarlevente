@@ -3,6 +3,6 @@ module.exports = {
     user: 'root',
     password: '', 
     database: 'PlanUp',
-    port: 3307 // Ez az alapértelmezett port, ellenőrizd, hogy egyezik-e
+    port: 3306 // Ez az alapértelmezett port, ellenőrizd, hogy egyezik-e
   };
   

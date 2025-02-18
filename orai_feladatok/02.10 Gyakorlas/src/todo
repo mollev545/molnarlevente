@@ -1,0 +1,9 @@
+1. vite telepítése
+2. Keretrendszer kialakítása.
+    a. router telepitése
+    b. könyvtárszerkezet kialakítása
+3. Navbar.jsx elkészítése, {Link} import, linkek elkészítése
+4. main.jsx elkészítése, {BrowserRouter} import, APP csomagolása {BrowserRouter}
+5. komponensek elkészítése (lorem?)
+6.app.jsx-ben a routolás beálítása, oldalak importállása, path beállítása
+7. exportok beálítása, import ha egyszerre több komponest importálunk

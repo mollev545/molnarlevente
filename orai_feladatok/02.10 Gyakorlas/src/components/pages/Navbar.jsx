@@ -6,7 +6,7 @@ import'./Navbar.css'
 
 export const Navbar = () =>{
 const [menuOPen,setMenuOPen]=useState(false)
-return
+return(
 <nav>
 <Link to="/" className="title"> Címoldal</Link>
 <div className='menu' onClick={()  =>
@@ -37,5 +37,5 @@ return
 </ul>
 
 </nav>
-
+);
 }
