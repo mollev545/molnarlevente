@@ -5,8 +5,9 @@ const bcrypt = require('bcrypt');
 const dbConfig = require('./config/dbConfig');
 const programRoutes = require('./routes/programs');
 const userRoutes = require('./routes/users');
-const roomRoutes = require('./routes/rooms');
+const roomRoutes = require('./routes/rooms'); // Router importálása
 const profileRoutes = require('./routes/profiles');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 
@@ -21,6 +22,8 @@ app.use('/rooms', roomRoutes);
 app.use('/profile', profileRoutes);
 app.use('/programs', programRoutes);
 app.use('/users', userRoutes);
+app.use('/auth', authRoutes);
+
 
 app.use(async (req, res, next) => {
   try {
