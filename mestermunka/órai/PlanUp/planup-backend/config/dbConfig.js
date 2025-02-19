@@ -1,8 +1,9 @@
+require('dotenv').config(); // ✅ Környezeti változók betöltése
+
 module.exports = {
-    host: 'localhost',
-    user: 'root',
-    password: '', 
-    database: 'PlanUp',
-    port: 3307 // Ez az alapértelmezett port, ellenőrizd, hogy egyezik-e
-  };
-  
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || '',
+  database: process.env.DB_NAME || 'planup',
+  port: process.env.DB_PORT || 3307
+};

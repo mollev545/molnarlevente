@@ -10,14 +10,14 @@ function ProgramSwipe({ apiUrl, userId }) {
   const [filterActive, setFilterActive] = useState(false);
 
   const magyarIdotartam = {
-    half_day: 'Fél napos',
-    whole_day: 'Egész napos',
-    weekend: 'Egész hétvégés',
+    1: 'Fél napos',
+    2: 'Egész napos',
+    3: 'Egész hétvégés',
   };
 
   const magyarKoltseg = {
-    free: 'Ingyenes',
-    paid: 'Fizetős',
+    false: 'Ingyenes',
+    true: 'Fizetős',
   };
 
   const fetchFilteredProgram = async () => {
@@ -27,15 +27,15 @@ function ProgramSwipe({ apiUrl, userId }) {
       });
       const fetchedProgram = response.data;
 
-      // Ellenőrzés a kedvelt programok listájával és a szűrőkkel
       if (
+        fetchedProgram &&
         (!likedPrograms.has(fetchedProgram.ProgramID)) &&
-        (!filters.duration || fetchedProgram.Duration === filters.duration) &&
-        (!filters.cost || fetchedProgram.Cost === filters.cost)
+        (!filters.duration || fetchedProgram.Duration == filters.duration) &&
+        (filters.cost === '' || fetchedProgram.Cost == filters.cost)
       ) {
         setProgram(fetchedProgram);
       } else {
-        fetchFilteredProgram(); // Új program lekérése, ha nem felel meg a feltételeknek
+        fetchFilteredProgram();
       }
     } catch (err) {
       setError('Nem sikerült betölteni a programot.');
@@ -105,12 +105,6 @@ function ProgramSwipe({ apiUrl, userId }) {
           <p>Költség: {magyarKoltseg[program.Cost] || program.Cost}</p>
         </div>
       )}
-      <div class="ads-container">
-  <img src="https://via.placeholder.com/150x300?text=Ad+1" alt="Ad 1" />
-  <img src="https://via.placeholder.com/150x300?text=Ad+2" alt="Ad 2" />
-  <img src="https://via.placeholder.com/150x300?text=Ad+3" alt="Ad 3" />
-</div>
-
 
       <div className="swipe-buttons">
         <button className="dislike-button" onClick={() => handleSwipe('dislike')}>
