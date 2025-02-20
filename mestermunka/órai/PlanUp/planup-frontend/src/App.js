@@ -10,7 +10,7 @@ import Profile from './pages/Profile';
 import Navbar from './pages/Navbar';
 import Settings from './pages/ProfileSettings';
 import 'tachyons/css/tachyons.min.css';
-import  {AuthProvider}  from './context/AuthContext';
+import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
