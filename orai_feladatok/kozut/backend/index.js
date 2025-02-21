@@ -9,9 +9,17 @@ app.use(cors());
 const db = mysql.createConnection({
     user: "root",
     host: "127.0.0.1",
-    port: "3306",
+    port: "3307",
     password: "",
     database: "kozutak",
+});
+
+db.connect(err => {
+    if (err) {
+        console.error("Hiba az adatbázis kapcsolat során:", err);
+        return;
+    }
+    console.log("Sikerekes kapcsolódás");
 });
 
 app.get("/", (req, res) => {
@@ -21,7 +29,10 @@ app.get("/", (req, res) => {
 app.get("/regiok", (req, res) => {
     const sql = "SELECT * FROM regiok";
     db.query(sql, (err, result) => {
-        if (err) return res.json(err);
+        if (err) {
+            console.error("Baj van:", err);
+            return res.status(500).json(err);
+        }
         return res.json(result);
     });
 });
@@ -29,29 +40,37 @@ app.get("/regiok", (req, res) => {
 app.get("/regiok_8", (req, res) => {
     const sql = "SELECT * FROM regiok WHERE Rid = 8";
     db.query(sql, (err, result) => {
-        if (err) return res.json(err);
+        if (err) {
+            console.error("Baj van:", err);
+            return res.status(500).json(err);
+        }
         return res.json(result);
     });
 });
 
 app.post("/ujregio", (req, res) => {
-    const sql = "INSERT INTO `regiok` (`Rid`, `regionev`, `regio_tipusa`) VALUES (?, ?, ?), (?, ?, ?)";
-    const values = ['10', 'Budapest', 'Főváros', '11', 'Szeged', 'Város'];
+    const { Rid, regionev, regio_tipusa } = req.body;
+    if (!Rid || !regionev || !regio_tipusa) {
+        return res.status(400).json({ error: "Minden mező kitöltése kötelező!" });
+    }
 
-    db.query(sql, values, (err, result) => {
+    const sql = "INSERT INTO regiok (Rid, regionev, regio_tipusa) VALUES (?, ?, ?)";
+    db.query(sql, [Rid, regionev, regio_tipusa], (err, result) => {
         if (err) {
-            console.error("hiba történt", err);
+            console.error("Error inserting region:", err);
             return res.status(500).json({ error: "Adatbázis hiba történt" });
         }
-        return res.status(200).json({ message: "Sikeres beszúrás!", result });
+        return res.status(201).json({ message: "Sikeres beszúrás!", result });
     });
 });
-
 app.delete("/torles/:id", (req, res) => {
-    const sql = "DELETE FROM `regiok` WHERE Rid = ?";
+    const sql = "DELETE FROM regiok WHERE Rid = ?";
     db.query(sql, [req.params.id], (err, result) => {
-        if (err) return res.json(err);
-        return res.json(result);
+        if (err) {
+            console.error("Error deleting region:", err);
+            return res.status(500).json(err);
+        }
+        return res.json({ message: "Sikeres törlés!", result });
     });
 });
 
