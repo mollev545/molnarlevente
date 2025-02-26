@@ -23,7 +23,7 @@ CREATE TABLE Programs (
     Cost BOOLEAN NOT NULL DEFAULT FALSE, -- Fizetős szűrő (TRUE/FALSE)
     Duration TINYINT NOT NULL DEFAULT 1, -- Időtartam (1 = Fél nap, 2 = Egész nap, 3 = Hétvége)
     CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    Location VARCHAR(25) NOT NULL,
+    Location VARCHAR(50) NOT NULL,
     Image VARCHAR(50) NOT NULL
 );
 
@@ -138,5 +138,5 @@ INSERT INTO Programs (Name, Description, Duration, Cost, Location, Image) VALUES
 ('Lézerharc', 'Vegyétek fel a harcot, küzdjetek meg egymással, ne hagyjátok hogy a lézer eltaláljon!', 3, TRUE, 'Budapest', 'lezerharc.jpg'),
 ('Társasjátékozás', 'Mérjétek össze tudásotokat vagy szerencséteket egy jó társasjátékban, esetleg egy jó hideg sör társaságában!', 3, TRUE, 'Budapest', 'tarsasjatek_sorozgetes.jpg'),
 ('Plázázás', 'Fedezzétek fel Budapest plázáit, vesszetek el a kirakatokban.', 1, FALSE, 'Budapest', 'plazazas-shoppingolas.jpg'),
-('Kolodko szobor keresés', 'Fedezd fel Budapest rejtett kis mini szobrait, találd meg mindet!', 1, FALSE, 'Budapest', 'kolodko-szobor.jpg'),
+('Kolodko szobor keresés', 'Fedezd fel Budapest rejtett kis mini szobrait, találd meg mindet!', 1, FALSE, 'Budapest', 'kolodko-szobor.jpg');
 

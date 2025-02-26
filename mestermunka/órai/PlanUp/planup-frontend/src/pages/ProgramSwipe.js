@@ -21,8 +21,6 @@ function ProgramSwipe({ apiUrl, userId }) {
   };
 
   const fetchFilteredProgram = async () => {
-    console.log("Filters objektum:", filters);
-  console.log("Küldött duration paraméter:", filters.duration);
     try {
       const response = await axios.get(`${apiUrl}/programs/random`, {
         params: filterActive
