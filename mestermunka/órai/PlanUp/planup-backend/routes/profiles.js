@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 
-// Update user name
 router.put('/update-name', async (req, res) => {
   const { userId, name } = req.body;
 
