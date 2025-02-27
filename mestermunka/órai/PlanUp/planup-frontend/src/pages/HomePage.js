@@ -1,6 +1,8 @@
 import React from 'react';
 import '../Style/HomePage.css';
 import { Link } from 'react-router-dom';
+import 'tachyons/css/tachyons.min.css';
+
 
 
 function HomePage() {

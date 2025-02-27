@@ -37,7 +37,6 @@ function ProgramSwipe({ apiUrl, userId }) {
     }
 
 
-    // API hívás a backendhez a szűrt adatokkal
     const response = await axios.get(`${apiUrl}/programs/random`, { params });
 
     let fetchedProgram = response.data;

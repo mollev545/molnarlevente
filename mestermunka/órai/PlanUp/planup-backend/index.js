@@ -130,7 +130,7 @@ if (duration !== undefined) {
     const formattedPrograms = programs.map(prog => ({
       ...prog,
       Cost: Boolean(prog.Cost),
-      Image: prog.Image.startsWith('/images/') ? prog.Image : `/images/${prog.Image}` 
+      Image: prog.Image.startsWith('/images/') ? prog.Image : `/images/${prog.Image}` // Helyes képútvonal biztosítása
     }));
 
     res.status(200).json(formattedPrograms);
