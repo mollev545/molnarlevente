@@ -114,11 +114,7 @@ function ProgramSwipe({ apiUrl, userId }) {
 )}
 
 
-      <div className="ads-container">
-        <img src="https://via.placeholder.com/150x300?text=Ad+1" alt="Ad 1" />
-        <img src="https://via.placeholder.com/150x300?text=Ad+2" alt="Ad 2" />
-        <img src="https://via.placeholder.com/150x300?text=Ad+3" alt="Ad 3" />
-      </div>
+      
 
       <div className="swipe-buttons">
         <button className="dislike-button" onClick={() => handleSwipe("dislike")}>
