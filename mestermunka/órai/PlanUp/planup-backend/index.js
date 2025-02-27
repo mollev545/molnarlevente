@@ -111,26 +111,26 @@ app.get('/programs', async (req, res) => {
   const { cost, duration } = req.query;
 
   let query = "SELECT ProgramID, Name, Description, Duration, Cost, Location, Image FROM Programs WHERE 1=1";
-  const params = [];
+const params = [];
 
-  if (cost !== undefined) {
-    query += " AND Cost = ?";
-    params.push(cost === 'true' ? 1 : 0);
-  }
+if (cost !== undefined) {
+  query += " AND Cost = ?";
+  params.push(cost === 'true' ? 1 : 0);
+}
 
-  if (duration !== undefined) {
-    query += " AND Duration = ?";
-    params.push(parseInt(duration, 10));
-  }
+if (duration !== undefined) {
+  query += " AND Duration = ?";
+  params.push(parseInt(duration, 10));
+}
+
 
   try {
     const [programs] = await req.db.execute(query, params);
 
-    // Cost boolean-né alakítása és kép elérési útvonalának javítása
     const formattedPrograms = programs.map(prog => ({
       ...prog,
       Cost: Boolean(prog.Cost),
-      Image: prog.Image.startsWith('/images/') ? prog.Image : `/images/${prog.Image}` // Helyes képútvonal biztosítása
+      Image: prog.Image.startsWith('/images/') ? prog.Image : `/images/${prog.Image}` 
     }));
 
     res.status(200).json(formattedPrograms);

@@ -21,49 +21,59 @@ function ProgramSwipe({ apiUrl, userId }) {
   };
 
   const fetchFilteredProgram = async () => {
-    try {
-      const response = await axios.get(`${apiUrl}/programs/random`, {
-        params: filterActive
-          ? {
-              cost: filters.cost === "paid" ? "true" : filters.cost === "free" ? "false" : undefined,
-              duration:
-                filters.duration === "half_day" ? 1 :
-                filters.duration === "whole_day" ? 2 :
-                filters.duration === "weekend" ? 3 : undefined,
-            }
-          : {},
-      });
+  try {
+    const params = {};
 
-      let fetchedProgram = response.data;
-
-      if (!fetchedProgram || likedPrograms.has(fetchedProgram.ProgramID)) {
-        fetchFilteredProgram();
-        return;
+    if (filterActive) {
+      if (filters.cost) {
+        params.cost = filters.cost === "paid" ? "true" : "false";
       }
-
-      fetchedProgram.Cost = fetchedProgram.Cost ? "paid" : "free";
-      fetchedProgram.Duration =
-        fetchedProgram.Duration === 1 ? "half_day" :
-        fetchedProgram.Duration === 2 ? "whole_day" :
-        fetchedProgram.Duration === 3 ? "weekend" : fetchedProgram.Duration;
-
-      setProgram(fetchedProgram);
-    } catch (err) {
-      setError("Nem sikerült betölteni a programot.");
+      if (filters.duration) {
+        params.duration =
+          filters.duration === "half_day" ? 1 :
+          filters.duration === "whole_day" ? 2 :
+          filters.duration === "weekend" ? 3 : undefined;
+      }
     }
-  };
 
+
+    // API hívás a backendhez a szűrt adatokkal
+    const response = await axios.get(`${apiUrl}/programs/random`, { params });
+
+    let fetchedProgram = response.data;
+
+    if (!fetchedProgram || likedPrograms.has(fetchedProgram.ProgramID)) {
+      setProgram(null);
+      return;
+    }
+
+    fetchedProgram.Cost = fetchedProgram.Cost ? "paid" : "free";
+    fetchedProgram.Duration =
+      fetchedProgram.Duration === 1 ? "half_day" :
+      fetchedProgram.Duration === 2 ? "whole_day" :
+      fetchedProgram.Duration === 3 ? "weekend" : fetchedProgram.Duration;
+
+    setProgram(fetchedProgram);
+  } catch (err) {
+    setError("Nem sikerült betölteni a programot.");
+  }
+};
+
+
+  // Figyeljük, ha a szűrés állapota vagy a filterek változnak
   useEffect(() => {
     fetchFilteredProgram();
-  }, [apiUrl, filterActive]);
+  }, [filterActive, filters]);
 
+  // Like/Dislike gombok kezelése
   const handleSwipe = async (action) => {
     if (!program) return;
 
     try {
       await axios.post(`${apiUrl}/programs/${program.ProgramID}/${action}`, { userId });
+
       if (action === "like") {
-        setLikedPrograms((prev) => new Set(prev).add(program.ProgramID));
+        setLikedPrograms((prev) => new Set([...prev, program.ProgramID]));
       }
       fetchFilteredProgram();
     } catch (err) {
@@ -94,27 +104,27 @@ function ProgramSwipe({ apiUrl, userId }) {
           ))}
         </select>
 
-        <button onClick={() => setFilterActive(!filterActive)}>
+        <button onClick={() => {
+          setFilterActive(!filterActive);
+          fetchFilteredProgram(); 
+        }}>
           {filterActive ? "Szűrő kikapcsolása" : "Szűrő alkalmazása"}
         </button>
       </div>
 
       {error && <div className="error-message">{error}</div>}
-      {!program && <div className="loading">Betöltés...</div>}
+      {!program && <div className="loading">Nincs találat vagy betöltés...</div>}
 
       {program && (
-  <div className="program-card">
-<img src={`http://localhost:3001/images/${program.Image}`} alt={program.Name} className="program-image" />
-    <h2>{program.Name}</h2>
-    <p>{program.Description}</p>
-    <p>Helyszín: {program.Location}</p>
-    <p>Időtartam: {magyarIdotartam[program.Duration] || "Ismeretlen időtartam"}</p>
-    <p>Költség: {magyarKoltseg[program.Cost] || "Ismeretlen"}</p>
-  </div>
-)}
-
-
-      
+        <div className="program-card">
+          <img src={`http://localhost:3001/images/${program.Image}`} alt={program.Name} className="program-image" />
+          <h2>{program.Name}</h2>
+          <p>{program.Description}</p>
+          <p>Helyszín: {program.Location}</p>
+          <p>Időtartam: {magyarIdotartam[program.Duration] || "Ismeretlen időtartam"}</p>
+          <p>Költség: {magyarKoltseg[program.Cost] || "Ismeretlen"}</p>
+        </div>
+      )}
 
       <div className="swipe-buttons">
         <button className="dislike-button" onClick={() => handleSwipe("dislike")}>
