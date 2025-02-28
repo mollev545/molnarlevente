@@ -11,6 +11,7 @@ import Navbar from './pages/Navbar';
 
 
 function App() {
+  
   return (
     <Router>
       <Navbar />
@@ -26,5 +27,6 @@ function App() {
 </Router>
   );
 }
+
 
 export default App;

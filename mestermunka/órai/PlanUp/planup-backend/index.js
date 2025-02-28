@@ -7,6 +7,10 @@ const programRoutes = require('./routes/programs');
 const userRoutes = require('./routes/users');
 const roomRoutes = require('./routes/rooms'); // Router importálása
 const profileRoutes = require('./routes/profiles');
+const cookieParser = require("cookie-parser"); //Cookie-k kezelése
+const session = require("express-session");
+require('dotenv').config();
+
 
 // Az app inicializálása
 const app = express();
@@ -66,7 +70,8 @@ app.post('/auth/register', async (req, res) => {
   }
 });
 
-// Bejelentkezés
+// Bejelentkezés (régi)
+/*
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -93,7 +98,7 @@ app.post('/login', async (req, res) => {
     console.error('Bejelentkezési hiba:', error.message);
     res.status(500).json({ error: 'Bejelentkezés sikertelen', details: error.message });
   }
-});
+}); */
 
 // Teszt útvonal
 app.get('/', (req, res) => {
@@ -157,7 +162,7 @@ app.get('/programs/random', async (req, res) => {
   }
 });
 
-// 🔹 Program kedvelése
+// 🔹 Program kedvelése   (updated: RoomAPI UserID)
 app.post('/programs/:id/like', async (req, res) => {
   const { id } = req.params;
   const { userId } = req.body;
@@ -192,3 +197,55 @@ app.post('/programs/:id/dislike', async (req, res) => {
     res.status(500).json({ error: 'Hiba történt a program nem kedvelése során.' });
   }
 });
+
+
+
+//Rooms API UserID cuccok
+
+// CORS beállítás, hogy a frontend elérhesse a szervert
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true
+}));
+app.use(express.json());
+app.use(cookieParser());
+
+// Session middleware beállítása
+app.use(session({
+  secret: process.env.SESSION_SECRET || "titkoskulcs", // Titkos kulcs beállítása
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+      secure: false, // HTTPS esetén legyen true
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24 // 1 napos lejárat
+  }
+}));
+
+// Bejelentkezés API
+app.post("/login", (req, res) => {
+  const { email, password } = req.body;
+  
+  db.query("SELECT id, email FROM users WHERE email = ? AND password = ?", 
+      [email, password], (err, result) => {
+      if (err) return res.status(500).json({ error: "Szerverhiba" });
+      if (result.length === 0) return res.status(401).json({ error: "Hibás adatok" });
+
+      req.session.user = result[0]; // Session mentése
+      res.json({ message: "Sikeres bejelentkezés!" });
+  });
+});
+
+// Ellenőrzés, hogy be van-e jelentkezve
+app.get("/user", (req, res) => {
+  if (!req.session.user) return res.status(401).json({ error: "Nincs bejelentkezve" });
+  res.json(req.session.user);
+});
+
+// Kijelentkezés API
+app.post("/logout", (req, res) => {
+  req.session.destroy(() => {
+      res.json({ message: "Sikeres kijelentkezés!" });
+  });
+});
+
